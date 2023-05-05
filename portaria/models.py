@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import RegexValidator
 
 class Apartamento(models.Model):
     numero = models.IntegerField(unique=True, default=0)
@@ -13,7 +14,8 @@ class Apartamento(models.Model):
 
 class Visitante(models.Model):
     nome = models.CharField(max_length=100)
-    cpf = models.CharField(unique=True, max_length=14)
+    cpf_regex = RegexValidator(r'^\d{3}\.\d{3}\.\d{3}\-\d{2}$', 'CPF inválido. O formato deve ser: 000.000.000-00')
+    cpf = models.CharField(validators=[cpf_regex], unique=True, max_length=14)
     data_visita = models.DateField()
     apartamentos = models.ForeignKey(Apartamento, on_delete=models.CASCADE)
     uber = models.BooleanField(default=False)
