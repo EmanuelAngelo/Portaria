@@ -10,6 +10,8 @@ class ApartamentoAdmin(admin.ModelAdmin):
 class VisitanteAdmin(admin.ModelAdmin):
     list_display = ('nome', 'cpf', 'uber', 'data_visita', 'apartamentos')
     list_filter = ('nome', 'cpf', 'apartamentos')
+    date_hierarchy = 'data_visita'
+    search_fields = ('cpf', 'apartamentos',)
 
 @admin.register(Sucesso)
 class SucessoAdmin(admin.ModelAdmin):
